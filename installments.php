@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WooCommerce Parcelamento PagSeguro
- * Plugin URI: http://francotecnologia.com/
- * Description: Added the price with installments.
+ * Plugin Name: WooCommerce Installments Plugin
+ * Plugin URI: https://github.com/AndersonFranco/woocommerce-installments
+ * Description: This plugin appends installments into the product price.
  * Author: Anderson Franco
  * Author URI: http://www.francotecnologia.com/
- * Version: 1.0
+ * Version: 1.0.0
  * License: GPLv2 or later
  */
 
