@@ -1,13 +1,13 @@
-# WooCommerce Installments Plugin #
-**Contributors:** Anderson Franco
-**Donate link:** http://francotecnologia.com/donate/
-**Tags:** woocommerce, pagseguro, paypal, payment, parcelamento, installments
-**WordPress requires at least:** 3.8.1
-**WordPress tested up to:** 3.8.1
-**WooCommerce requires at least:** 2.1.3
-**WooCommerce tested up to:** 2.1.3
-**Stable tag:** 1.0.0
-**License:** GPLv2 or later
+# WooCommerce Installments Plugin #  
+**Contributors:** Anderson Franco  
+**Donate link:** http://francotecnologia.com/donate/  
+**Tags:** woocommerce, pagseguro, paypal, payment, parcelamento, installments  
+**WordPress requires at least:** 3.8.1  
+**WordPress tested up to:** 3.8.1  
+**WooCommerce requires at least:** 2.1.3  
+**WooCommerce tested up to:** 2.1.3  
+**Stable tag:** 1.0.0  
+**License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
 This plugin appends installments into the product price.
@@ -41,13 +41,13 @@ Criado inicialmente para ser exibir as opções de parcelamento do PagSeguro. No
 ## Screenshots ##
 
 ### 1. Catalog page. ###
-![1. Catalog page.](https://github.com/AndersonFranco/woocommerce-installments/images/catalog.png)
+![1. Catalog page.](http://andersonfranco.github.com/woocommerce-installments/images/catalog.png)
 
 ### 2. Product page. ###
-![2. Product page.](https://github.com/AndersonFranco/woocommerce-installments/images/product.png)
+![2. Product page.](http://andersonfranco.github.com/woocommerce-installments/images/product.png)
 
 ### 3. Cart page. ###
-![3. Cart page.](https://github.com/AndersonFranco/woocommerce-installments/images/cart.png)
+![3. Cart page.](http://andersonfranco.github.com/woocommerce-installments/images/cart.png)
 
 ## Changelog ##
 
