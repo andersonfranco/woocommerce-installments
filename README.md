@@ -53,15 +53,15 @@ Criado inicialmente para ser exibir as opções de parcelamento do PagSeguro. No
 
 ### Customize your CSS file ###
 
-  ul.products li.product .price {
-    display: inline;
-  }
+  ul.products li.product .price {  
+    display: inline;  
+  }  
 
-  .francotecnologia_wc_parcpagseg_table th, 
-  .francotecnologia_wc_parcpagseg_table td {
-    padding: 0; 
-    border-bottom: 1px solid #e8e4e3;
-  }
+  .francotecnologia_wc_parcpagseg_table th,  
+  .francotecnologia_wc_parcpagseg_table td {  
+    padding: 0;  
+    border-bottom: 1px solid #e8e4e3;  
+  }  
 
 ## Changelog ##
 
