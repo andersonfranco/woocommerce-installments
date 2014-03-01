@@ -9,72 +9,76 @@
  * License: GPLv2 or later
  */
 
-function francotecnologia_wc_parcpagseg_calculate_parcels( $valor = 0.00, $parcelas = 0 ) {
+function francotecnologia_wc_parcpagseg_calculate_installments( $price = 0.00, $installments = 0 ) {
 
-  $valor    = (float) $valor;
-  $parcelas = (int) $parcelas;
-  $retorno  = new stdClass(); 
+  $price        = (float) $price;
+  $installments = (int) $installments;
+  $result       = new stdClass(); 
 
-  if ( $parcelas < 1 || $parcelas > 12 ) {
-    $retorno->valor = 0;
-    $retorno->total = 0;
-    return $retorno;
+  if ( $installments < 1 || $installments > 12 ) {
+    $result->price = 0;
+    $result->total = 0;
+    return $result;
   }
 
-  $fator = array( 1, 0.52255, 0.35347, 
+  $fator = array( 
+    1, 0.52255, 0.35347, 
     0.26898, 0.21830, 0.18453, 
     0.16044, 0.14240, 0.12838, 
-    0.11717, 0.10802, 0.10040 );
+    0.11717, 0.10802, 0.10040
+  );
 
-  $retorno->valor = sprintf( "%0.2f", $valor * $fator[ $parcelas - 1 ] );
-  $retorno->total = sprintf( "%0.2f", ( $valor * $fator[ $parcelas - 1 ] ) * $parcelas );
+  $result->price = sprintf( "%0.2f", $price * $fator[ $installments - 1 ] );
+  $result->total = sprintf( "%0.2f", ( $price * $fator[ $installments - 1 ] ) * $installments );
 
-  return $retorno;
+  return $result;
 }
 
-function francotecnologia_wc_parcpagseg_get_parceled_value( $valor = null ) {
-  if ( $valor === null ) {
+function francotecnologia_wc_parcpagseg_get_parceled_value( $price = null ) {
+  if ( $price === null ) {
     $product = get_product();
     if ( $product->get_price() ) {
-      $valor = $product->get_price();
+      $price = $product->get_price();
     }
   }
-  if ( $valor > 0 ) {
-    $parcelas = round( $valor / 5 );
-    if ( $parcelas > 12 ) {
-      $parcelas = 12;
-    } else if ( $parcelas < 1 ) { 
-      $parcelas = 1;
+  if ( $price > 0 ) {
+    $installments = round( $price / 5 );
+    if ( $installments > 12 ) {
+      $installments = 12;
+    } else if ( $installments < 1 ) { 
+      $installments = 1;
     }
-    $calc = francotecnologia_wc_parcpagseg_calculate_parcels( $valor, $parcelas );
-    return $parcelas . 'x de ' . wc_price( $calc->valor );
+    $calc = francotecnologia_wc_parcpagseg_calculate_installments( $price, $installments );
+    return $installments . 'x de ' . wc_price( $calc->price );
+  } else {
+    return '';
   }
 }
 
-function francotecnologia_wc_parcpagseg_get_parceled_table( $valor = null ) {
-  if ( $valor === null ) {
+function francotecnologia_wc_parcpagseg_get_parceled_table( $price = null ) {
+  if ( $price === null ) {
     $product = get_product();
     if ( $product->get_price() ) {
-      $valor = $product->get_price();
+      $price = $product->get_price();
     }
   }
-  if ( $valor > 0 ) {
-    $parcelas = round( $valor / 5 );
-    if ( $parcelas > 12 ) {
-      $parcelas = 12;
-    } else if ( $parcelas < 1 ) { 
-      $parcelas = 1;
+  if ( $price > 0 ) {
+    $installments = round( $price / 5 );
+    if ( $installments > 12 ) {
+      $installments = 12;
+    } else if ( $installments < 1 ) { 
+      $installments = 1;
     }
     $table = '<table class="francotecnologia_wc_parcpagseg_table">';
     $table .= '<tr>';
-    $table .= str_repeat('<th>Parcelas</th><th>Valor</th>', $parcelas > 1 ? 2 : 1);
+    $table .= str_repeat('<th>Parcelas</th><th>Valor</th>', $installments > 1 ? 2 : 1);
     $table .= '</tr>';
-    foreach ( range(1, $parcelas) as $parcel ) {
-      $calc = francotecnologia_wc_parcpagseg_calculate_parcels( $valor, $parcel );
+    foreach ( range(1, $installments) as $parcel ) {
+      $calc = francotecnologia_wc_parcpagseg_calculate_installments( $price, $parcel );
       if ( $parcel % 2 == 1 ) {
         $table .= '<tr>';
       }      
-      $table .= '<th>' . $parcel . '</th><td>' . wc_price( $calc->valor ) . '</td>';
+      $table .= '<th>' . $parcel . '</th><td>' . wc_price( $calc->price ) . '</td>';
       if ( $parcel % 2 == 0 ) {
         $table .= '</tr>';
       }      
@@ -84,6 +88,8 @@ function francotecnologia_wc_parcpagseg_get_parceled_table( $valor = null ) {
     }    
     $table .= '</table>';
     return $table;
+  } else {
+    return '';
   }
 }
 
@@ -106,14 +112,13 @@ function francotecnologia_wc_parcpagseg_single_product() {
 
 function francotecnologia_wc_parcpagseg_cart() {
   global $woocommerce;
-  $valorTotal = 0;
   if ( $woocommerce->cart->total ) {
-    $valorTotal = francotecnologia_wc_parcpagseg_get_parceled_value( $woocommerce->cart->total );
+    $installments = francotecnologia_wc_parcpagseg_get_parceled_value( $woocommerce->cart->total );
   } else {
-    $valorTotal = "12 vezes";
+    $installments = "12 vezes";
   }
   ?>
-  <tr><th colspan="2" style="color: #00ADEF; font-size: 100%;border-bottom: 1px solid #e8e4e3;">* Pague sua compra em at&eacute; <?php echo $valorTotal; ?>.</th></tr>
+  <tr><th colspan="2" style="color: #00ADEF; font-size: 100%;border-bottom: 1px solid #e8e4e3;">* Pague sua compra em at&eacute; <?php echo $installments; ?>.</th></tr>
   <?php
 }
 
@@ -122,7 +127,5 @@ function alter_woo_hooks() {
   remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
   add_action( 'woocommerce_single_product_summary', 'francotecnologia_wc_parcpagseg_single_product', 10 );
   add_action( 'woocommerce_after_shop_loop_item_title', 'francotecnologia_wc_parcpagseg_loop_item', 20 );
-  //
   add_action( 'woocommerce_cart_totals_after_order_total', 'francotecnologia_wc_parcpagseg_cart', 20);
 }
-
