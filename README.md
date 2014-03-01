@@ -1,4 +1,4 @@
-# WooCommerce Installments Plugin #  
+# WooCommerce Installments Plugin #
 **Contributors:** Anderson Franco  
 **Donate link:** http://francotecnologia.com/donate/  
 **Tags:** woocommerce, pagseguro, paypal, payment, parcelamento, installments  
