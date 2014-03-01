@@ -20,8 +20,6 @@ Was created to be used with PagSeguro, PayPal and similars.
 
 This plugin appends installments into the product price
 
-This version was tested with WooCommerce 2.0.7 and WooCommerce 3.8
-
 ### Installation ###
 
 * Upload the entire 'woocommerce-installments' folder to the '/wp-content/plugins/' directory
