@@ -41,13 +41,13 @@ Criado inicialmente para ser exibir as opções de parcelamento do PagSeguro. No
 ## Screenshots ##
 
 ### 1. Catalog page. ###
-![1. Catalog page.](http://http://andersonfranco.github.io/images/woocommerce-installments/catalog.png)
+![1. Catalog page.](http://andersonfranco.github.io/images/woocommerce-installments/catalog.png)
 
 ### 2. Product page. ###
-![2. Product page.](http://http://andersonfranco.github.io/images/woocommerce-installments/product.png)
+![2. Product page.](http://andersonfranco.github.io/images/woocommerce-installments/product.png)
 
 ### 3. Cart page. ###
-![3. Cart page.](http://http://andersonfranco.github.io/images/woocommerce-installments/cart.png)
+![3. Cart page.](http://andersonfranco.github.io/images/woocommerce-installments/cart.png)
 
 ## Changelog ##
 
