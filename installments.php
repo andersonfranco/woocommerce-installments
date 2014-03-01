@@ -34,20 +34,30 @@ function francotecnologia_wc_parcpagseg_calculate_installments( $price = 0.00, $
   return $result;
 }
 
-function francotecnologia_wc_parcpagseg_get_parceled_value( $price = null ) {
+function francotecnologia_wc_parcpagseg_get_price( $price = null ) {
   if ( $price === null ) {
     $product = get_product();
     if ( $product->get_price() ) {
       $price = $product->get_price();
     }
+  }  
+  return $price;
+}
+
+function francotecnologia_wc_parcpagseg_get_installments( $price = 0.00 ) {
+  $installments = round( $price / 5 );
+  if ( $installments > 12 ) {
+    $installments = 12;
+  } else if ( $installments < 1 ) { 
+    $installments = 1;
   }
+  return $installments;
+}
+
+function francotecnologia_wc_parcpagseg_get_parceled_value( $price = null ) {
+  $price = francotecnologia_wc_parcpagseg_get_price( $price );
   if ( $price > 0 ) {
-    $installments = round( $price / 5 );
-    if ( $installments > 12 ) {
-      $installments = 12;
-    } else if ( $installments < 1 ) { 
-      $installments = 1;
-    }
+    $installments = francotecnologia_wc_parcpagseg_get_installments( $price );
     $calc = francotecnologia_wc_parcpagseg_calculate_installments( $price, $installments );
     return $installments . 'x de ' . wc_price( $calc->price );
   } else {
@@ -56,19 +66,9 @@ function francotecnologia_wc_parcpagseg_get_parceled_value( $price = null ) {
 }
 
 function francotecnologia_wc_parcpagseg_get_parceled_table( $price = null ) {
-  if ( $price === null ) {
-    $product = get_product();
-    if ( $product->get_price() ) {
-      $price = $product->get_price();
-    }
-  }
+  $price = francotecnologia_wc_parcpagseg_get_price( $price );
   if ( $price > 0 ) {
-    $installments = round( $price / 5 );
-    if ( $installments > 12 ) {
-      $installments = 12;
-    } else if ( $installments < 1 ) { 
-      $installments = 1;
-    }
+    $installments = francotecnologia_wc_parcpagseg_get_installments( $price );
     $table = '<table class="francotecnologia_wc_parcpagseg_table">';
     $table .= '<tr>';
     $table .= str_repeat('<th>Parcelas</th><th>Valor</th>', $installments > 1 ? 2 : 1);
@@ -94,7 +94,8 @@ function francotecnologia_wc_parcpagseg_get_parceled_table( $price = null ) {
 }
 
 function francotecnologia_wc_parcpagseg_loop_item() {
-  echo ' <span style="color: #00ADEF; font-size: 100%" class="price">ou ' . francotecnologia_wc_parcpagseg_get_parceled_value() . '</span>';
+  echo ' <span style="color: #00ADEF; font-size: 100%" class="price">ou ' 
+       . francotecnologia_wc_parcpagseg_get_parceled_value() . '</span>';
 }
 
 function francotecnologia_wc_parcpagseg_single_product() {
