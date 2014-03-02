@@ -123,8 +123,8 @@ function francotecnologia_wc_parcpagseg_cart() {
   <?php
 }
 
-add_action('plugins_loaded','alter_woo_hooks');
-function alter_woo_hooks() {
+add_action('plugins_loaded','francotecnologia_wc_parcpagseg_alter_woo_hooks');
+function francotecnologia_wc_parcpagseg_alter_woo_hooks() {
   remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
   add_action( 'woocommerce_single_product_summary', 'francotecnologia_wc_parcpagseg_single_product', 10 );
   add_action( 'woocommerce_after_shop_loop_item_title', 'francotecnologia_wc_parcpagseg_loop_item', 20 );
