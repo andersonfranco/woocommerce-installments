@@ -9,27 +9,27 @@
  * License: GPLv2 or later
  */
 
-function francotecnologia_wc_parcpagseg_calculate_installments( $price = 0.00, $installments = 0 ) {
+function francotecnologia_wc_parcpagseg_calculate_installment( $price = 0.00, $installment = 0 ) {
 
   $price        = (float) $price;
-  $installments = (int) $installments;
+  $installment  = (int) $installment;
   $result       = new stdClass(); 
 
-  if ( $installments < 1 || $installments > 12 ) {
+  if ( $installment < 1 || $installment > 12 ) {
     $result->price = 0;
     $result->total = 0;
     return $result;
   }
 
-  $fator = array( 
+  $coefficient = array( 
     1, 0.52255, 0.35347, 
     0.26898, 0.21830, 0.18453, 
     0.16044, 0.14240, 0.12838, 
     0.11717, 0.10802, 0.10040
   );
 
-  $result->price = sprintf( "%0.2f", $price * $fator[ $installments - 1 ] );
-  $result->total = sprintf( "%0.2f", ( $price * $fator[ $installments - 1 ] ) * $installments );
+  $result->price = sprintf( "%0.2f", $price * $coefficient[ $installment - 1 ] );
+  $result->total = sprintf( "%0.2f", ( $price * $coefficient[ $installment - 1 ] ) * $installment );
 
   return $result;
 }
@@ -58,7 +58,7 @@ function francotecnologia_wc_parcpagseg_get_parceled_value( $price = null ) {
   $price = francotecnologia_wc_parcpagseg_get_price( $price );
   if ( $price > 0 ) {
     $installments = francotecnologia_wc_parcpagseg_get_installments( $price );
-    $calc = francotecnologia_wc_parcpagseg_calculate_installments( $price, $installments );
+    $calc = francotecnologia_wc_parcpagseg_calculate_installment( $price, $installments );
     return $installments . 'x de ' . wc_price( $calc->price );
   } else {
     return '';
@@ -74,7 +74,7 @@ function francotecnologia_wc_parcpagseg_get_parceled_table( $price = null ) {
     $table .= str_repeat('<th>Parcelas</th><th>Valor</th>', $installments > 1 ? 2 : 1);
     $table .= '</tr>';
     foreach ( range(1, $installments) as $parcel ) {
-      $calc = francotecnologia_wc_parcpagseg_calculate_installments( $price, $parcel );
+      $calc = francotecnologia_wc_parcpagseg_calculate_installment( $price, $parcel );
       if ( $parcel % 2 == 1 ) {
         $table .= '<tr>';
       }      
