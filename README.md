@@ -4,7 +4,7 @@
 **Tested with:** WordPress 3.8.1 and WooCommerce 2.1.3  
 **Stable tag:** 1.0.0  
 **License:** GPLv2 or later  
-**License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
+**License URI:** http://www.gnu.org/licenses/gpl.html  
 
 This plugin appends installments into the product price.
 
