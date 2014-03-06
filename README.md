@@ -47,7 +47,7 @@ Criado inicialmente para ser exibir as opções de parcelamento do PagSeguro. No
 
 ## FAQ ##
 
-### Customize your CSS file ###
+### Sample of CSS to show the price like the screenshots ###
 
   ul.products li.product .price {  
     display: inline;  
