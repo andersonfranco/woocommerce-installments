@@ -14,6 +14,9 @@ Adds installments into the price. Adiciona parcelamento ao preço.
 
 This plugin appends installments into the product price. Was created to be used with PagSeguro, PayPal and similars.
 
+More info and screenshots in our GitHub repository:  
+https://github.com/AndersonFranco/woocommerce-installments  
+
 (Portuguese)  
 
 Adiciona parcelamento ao preço do produto. Foi criado para ser utilizado com PagSeguro, PayPal e similares.
@@ -46,6 +49,12 @@ Ajuste o CSS para exibir conforme os screenshots
     border-bottom: 1px solid #e8e4e3;  
   }  
 
+= Where can I report bugs or contribute to the project? =
+
+Preferably in our GitHub repository  
+
+https://github.com/AndersonFranco/woocommerce-installments
+
 == Screenshots ==
 
 1. Catalog page.
@@ -64,6 +73,3 @@ Ajuste o CSS para exibir conforme os screenshots
 
 = 1.0.1 =
 Readme Update
-
-= 1.0 =
-Initial Release
