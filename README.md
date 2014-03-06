@@ -1,4 +1,4 @@
-# WooCommerce Installments Plugin #
+# WooCommerce Installments #
 **Contributors:** Anderson Franco  
 **Tags:** woocommerce, pagseguro, paypal, payment, parcelamento, installments  
 **Tested with:** WordPress 3.8.1 and WooCommerce 2.1.3  

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WooCommerce Installments Plugin
+ * Plugin Name: WooCommerce Installments
  * Plugin URI: https://github.com/AndersonFranco/woocommerce-installments
  * Description: This plugin appends installments into the product price.
  * Author: Anderson Franco
