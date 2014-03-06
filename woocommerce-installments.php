@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: WooCommerce Installments
- * Plugin URI: https://github.com/AndersonFranco/woocommerce-installments
- * Description: This plugin appends installments into the product price.
- * Author: Anderson Franco
- * Author URI: http://www.francotecnologia.com/
- * Version: 1.0.0
- * License: GPLv2 or later
- */
+Plugin Name: WooCommerce Installments
+Plugin URI: https://github.com/AndersonFranco/woocommerce-installments
+Description: This plugin appends installments into the product price.
+Author: Anderson Franco
+Author URI: http://www.francotecnologia.com/
+Version: 1.0.0
+License: GPLv2 or later
+*/
 
 function francotecnologia_wc_parcpagseg_calculate_installment( $price = 0.00, $installment = 0 ) {
 
