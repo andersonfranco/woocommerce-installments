@@ -23,13 +23,13 @@ This plugin appends installments into the product price
 
 ## Portuguese ##
 
-### Descrição ###
+### Descri&ccedil;&atilde;o ###
 
 Este plugin adiciona ao preço do produto opções de parcelamento.
 
 Criado inicialmente para ser exibir as opções de parcelamento do PagSeguro. No entanto, pode ser customizado para qualquer outro serviço, bastando apenas editar a tabela de cálculo (fator) e o valor da parcela mínima.
 
-### Instalação ###
+### Instala&ccedil;&atilde;o ###
 
 * Envie toda a pasta 'woocommerce-installments' para a pasta '/wp-content/plugins/'
 * Ative o plugin através do menu Plugins no WordPress
