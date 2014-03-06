@@ -4,24 +4,37 @@ Donate link: http://francotecnologia.com/donate
 Tags: woocommerce, pagseguro, paypal, payment, parcelamento, installments
 Requires at least: 3.8.1
 Tested up to: 3.8.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin appends installments into the product price. Was created to be used with PagSeguro, PayPal and similars.
+Adds installments into the price. Adiciona parcelamento ao preço.
 
 == Description ==
 
 This plugin appends installments into the product price. Was created to be used with PagSeguro, PayPal and similars.
+
+(Portuguese)  
+
+Adiciona parcelamento ao preço do produto. Foi criado para ser utilizado com PagSeguro, PayPal e similares.
 
 == Installation ==
 
 1. Upload the entire `woocommerce-installments` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
+(Portuguese)  
+
+1. Envie toda a pasta 'woocommerce-installments' para a pasta '/wp-content/plugins/'
+2. Ative o plugin através do menu Plugins no WordPress
+
 == Frequently Asked Questions ==
 
 = Sample of CSS to show the price like the screenshots =
+
+(Portuguese)  
+
+Ajuste o CSS para exibir conforme os screenshots  
 
   ul.products li.product .price {  
     display: inline;  
@@ -41,10 +54,16 @@ This plugin appends installments into the product price. Was created to be used 
 
 == Changelog ==
 
+= 1.0.1 =
+* Readme file in Portuguese
+
 = 1.0 =
 * Initial Release
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Readme Update
 
 = 1.0 =
 Initial Release
