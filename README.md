@@ -18,8 +18,8 @@ This plugin appends installments into the product price
 
 ### Installation ###
 
-* Upload the entire 'woocommerce-installments' folder to the '/wp-content/plugins/' directory
-* Activate the plugin through the 'Plugins' menu in WordPress
+* Upload the entire `woocommerce-installments` folder to the `/wp-content/plugins/` directory
+* Activate the plugin through the `Plugins` menu in WordPress
 
 ## Portuguese ##
 
@@ -31,7 +31,7 @@ Criado inicialmente para ser exibir as opções de parcelamento do PagSeguro. No
 
 ### Instala&ccedil;&atilde;o ###
 
-* Envie toda a pasta 'woocommerce-installments' para a pasta '/wp-content/plugins/'
+* Envie toda a pasta `woocommerce-installments` para a pasta `/wp-content/plugins/`
 * Ative o plugin através do menu Plugins no WordPress
 
 ## Screenshots ##

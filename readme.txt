@@ -28,7 +28,7 @@ Adiciona parcelamento ao preço do produto. Foi criado para ser utilizado com Pa
 
 (Portuguese)  
 
-1. Envie toda a pasta 'woocommerce-installments' para a pasta '/wp-content/plugins/'
+1. Envie toda a pasta `woocommerce-installments` para a pasta `/wp-content/plugins/`
 2. Ative o plugin através do menu Plugins no WordPress
 
 == Frequently Asked Questions ==
