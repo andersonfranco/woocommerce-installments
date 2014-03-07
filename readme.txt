@@ -36,7 +36,6 @@ Adiciona parcelamento ao preço do produto. Foi criado para ser utilizado com Pa
 = Sample of CSS to show the price like the screenshots =
 
 (Portuguese)  
-
 Ajuste o CSS para exibir conforme os screenshots  
 
   ul.products li.product .price {  
@@ -52,7 +51,6 @@ Ajuste o CSS para exibir conforme os screenshots
 = Where can I report bugs or contribute to the project? =
 
 Preferably in our GitHub repository  
-
 https://github.com/AndersonFranco/woocommerce-installments
 
 == Screenshots ==
