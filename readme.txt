@@ -3,8 +3,8 @@ Contributors: andersonfranco
 Donate link: http://francotecnologia.com/donate
 Tags: woocommerce, pagseguro, paypal, payment, parcelamento, installments
 Requires at least: 3.8.1
-Tested up to: 3.8.1
-Stable tag: 1.0.1
+Tested up to: 4.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,12 +24,12 @@ Adiciona parcelamento ao preço do produto. Foi criado para ser utilizado com Pa
 == Installation ==
 
 1. Upload the entire `woocommerce-installments` folder to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
+2. Activate the plugin through the `Plugins` menu in WordPress
 
 (Portuguese)  
 
 1. Envie toda a pasta `woocommerce-installments` para a pasta `/wp-content/plugins/`
-2. Ative o plugin através do menu Plugins no WordPress
+2. Ative o plugin através do menu `Plugins` no WordPress
 
 == Frequently Asked Questions ==
 
@@ -60,6 +60,9 @@ https://github.com/AndersonFranco/woocommerce-installments
 3. Cart page.
 
 == Changelog ==
+
+= 1.1.0 =
+* Settings
 
 = 1.0.1 =
 * Readme file in Portuguese
