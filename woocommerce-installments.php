@@ -5,7 +5,7 @@ Plugin URI: https://github.com/AndersonFranco/woocommerce-installments
 Description: This plugin appends installments into the product price.
 Author: Anderson Franco
 Author URI: http://www.francotecnologia.com/
-Version: 1.1.0
+Version: 1.1.1
 License: GPLv2 or later
 */
 
@@ -21,7 +21,7 @@ define( 'FRANCOTECNOLOGIA_WC_PARCPAGSEG_TABLE_COLUMNS', 2 );
 // ADD TO CART - BUTTON POSITION: TOP = true, BOTTOM = false
 define( 'FRANCOTECNOLOGIA_WC_PARCPAGSEG_ADD_TO_CART_BUTTON_POSITION', false );
 
-// USE COEFFICIENT TABLE / INTEREST RATES - LINE 58:
+// USE COEFFICIENT TABLE / INTEREST RATES - LINE 55:
 define( 'FRANCOTECNOLOGIA_WC_PARCPAGSEG_USE_COEFFICIENT_TABLE', false );
 
 // CART PAGE MESSAGE:
@@ -49,10 +49,7 @@ function francotecnologia_wc_parcpagseg_calculate_installment( $price = 0.00, $i
   if ( $installment < 1 || $installment > 12 ) {
     $result->price = 0;
     $result->total = 0;
-    return $result;
-  }
-
-  if ( FRANCOTECNOLOGIA_WC_PARCPAGSEG_USE_COEFFICIENT_TABLE ) {
+  } else if ( FRANCOTECNOLOGIA_WC_PARCPAGSEG_USE_COEFFICIENT_TABLE ) {
     
     // INTEREST RATES OF PAGSEGURO.COM.BR
     $coefficient = array( 
