@@ -132,7 +132,8 @@ function francotecnologia_wc_parcpagseg_get_parceled_table( $price = null ) {
 
 function francotecnologia_wc_parcpagseg_loop_item() {
   if ( francotecnologia_wc_parcpagseg_get_price() >= FRANCOTECNOLOGIA_WC_PARCPAGSEG_PRICE_GTET ) {
-    echo ' <span style="color: #00ADEF; font-size: 100%" class="price">' . __('or') . ' '
+    echo ' <span style="color: #00ADEF; font-size: 100%" class="price">' 
+         . (francotecnologia_wc_parcpagseg_get_price() > 0 ? __('or') . ' ' : '')
          . francotecnologia_wc_parcpagseg_get_parceled_value() . '</span>';
   }
 }
@@ -145,7 +146,7 @@ function francotecnologia_wc_parcpagseg_single_product() {
   $product = get_product();
   ?>
   <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <p class="price"><?php echo $product->get_price_html(); ?> <span style="color: #00ADEF; font-size: 75%"><?php echo __('or') . ' ' . francotecnologia_wc_parcpagseg_get_parceled_value(); ?></span></p>
+    <p class="price"><?php echo $product->get_price_html(); ?> <span style="color: #00ADEF; font-size: 75%"><?php echo (francotecnologia_wc_parcpagseg_get_price() > 0 ? __('or') . ' ' : '') . francotecnologia_wc_parcpagseg_get_parceled_value(); ?></span></p>
     <?php echo francotecnologia_wc_parcpagseg_get_parceled_table(); ?>
     <meta itemprop="price" content="<?php echo $product->get_price(); ?>" />
     <meta itemprop="priceCurrency" content="<?php echo get_woocommerce_currency(); ?>" />
@@ -163,9 +164,18 @@ function francotecnologia_wc_parcpagseg_cart() {
     $installments = francotecnologia_wc_parcpagseg_get_parceled_value( $woocommerce->cart->total );
   } else {
     $installments = "";
-  }
+  }  
+  if (stripos(FRANCOTECNOLOGIA_WC_PARCPAGSEG_CART_PAGE_MESSAGE,'%d') !== false) {
+    if ( $installments > 0 ) {
+      $message = sprintf(FRANCOTECNOLOGIA_WC_PARCPAGSEG_CART_PAGE_MESSAGE, $installments);
+    } else {
+      $message = '';
+    }
+  } else {
+    $message = FRANCOTECNOLOGIA_WC_PARCPAGSEG_CART_PAGE_MESSAGE;
+  } 
   ?>
-  <tr><th colspan="2" style="color: #00ADEF; font-size: 100%;border-bottom: 1px solid #e8e4e3;"><?php echo stripos(FRANCOTECNOLOGIA_WC_PARCPAGSEG_CART_PAGE_MESSAGE,'%d') !== false ? sprintf(FRANCOTECNOLOGIA_WC_PARCPAGSEG_CART_PAGE_MESSAGE, $installments) : FRANCOTECNOLOGIA_WC_PARCPAGSEG_CART_PAGE_MESSAGE; ?></th></tr>
+  <tr><th colspan="2" style="color: #00ADEF; font-size: 100%;border-bottom: 1px solid #e8e4e3;"><?php echo $message; ?></th></tr>
   <?php
 }
 
