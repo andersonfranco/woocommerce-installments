@@ -5,7 +5,7 @@ Plugin URI: https://github.com/AndersonFranco/woocommerce-installments
 Description: This plugin appends installments into the product price.
 Author: Anderson Franco
 Author URI: http://www.francotecnologia.com/
-Version: 1.1.1
+Version: 1.1.2
 License: GPLv2 or later
 */
 

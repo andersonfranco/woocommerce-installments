@@ -2,7 +2,7 @@
 **Contributors:** Anderson Franco  
 **Tags:** woocommerce, pagseguro, paypal, payment, parcelamento, installments  
 **Tested with:** WordPress 4.0 and WooCommerce 2.2.4  
-**Stable tag:** 1.1.1  
+**Stable tag:** 1.1.2  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl.html  
 
@@ -62,6 +62,10 @@ Criado inicialmente para ser exibir as opções de parcelamento do PagSeguro. No
 ```
 
 ## Changelog ##
+
+### 1.1.2 ###
+
+* Bug fix
 
 ### 1.1.1 ###
 

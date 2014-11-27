@@ -4,7 +4,7 @@ Donate link: http://francotecnologia.com/donate
 Tags: woocommerce, pagseguro, paypal, payment, parcelamento, installments
 Requires at least: 3.8.1
 Tested up to: 4.0
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,9 @@ https://github.com/AndersonFranco/woocommerce-installments
 3. Cart page.
 
 == Changelog ==
+
+= 1.1.2 =
+* Bug fix
 
 = 1.1.1 =
 * Small Tweak
