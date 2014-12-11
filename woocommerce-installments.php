@@ -5,7 +5,7 @@ Plugin URI: https://github.com/AndersonFranco/woocommerce-installments
 Description: This plugin appends installments into the product price.
 Author: Anderson Franco
 Author URI: http://www.francotecnologia.com/
-Version: 1.1.2
+Version: 1.2.0
 License: GPLv2 or later
 */
 
@@ -100,12 +100,14 @@ function francotecnologia_wc_parcpagseg_get_parceled_value( $price = null ) {
   }
 }
 
-function francotecnologia_wc_parcpagseg_get_parceled_table( $price = null ) {
+function francotecnologia_wc_parcpagseg_get_parceled_table( $price = null, $variation_id = null, $variation_display = null ) {
   $price = francotecnologia_wc_parcpagseg_get_price( $price );
   if ( $price > 0 ) {
     $installments = francotecnologia_wc_parcpagseg_get_installments( $price );
-    $table = '<table class="francotecnologia_wc_parcpagseg_table">';
-    $table .= '<tr>';
+    $table = '<table class="francotecnologia_wc_parcpagseg_table ';
+    $table .= 'francotecnologia_wc_parcpagseg_table_with_variation_id_' . ($variation_id > 0 ? $variation_id : '0') . '" ';
+    $table .= ($variation_display === false ? 'style="display:none"' : '');
+    $table .= '><tr>';
     $table .= str_repeat('<th>' . __('Installments') . '</th><th>' . __('Amount') . '</th>', FRANCOTECNOLOGIA_WC_PARCPAGSEG_TABLE_COLUMNS);
     $table .= '</tr>';
     $tdCounter = 0;
@@ -147,7 +149,17 @@ function francotecnologia_wc_parcpagseg_single_product() {
   ?>
   <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
     <p class="price"><?php echo $product->get_price_html(); ?> <span style="color: #00ADEF; font-size: 75%"><?php echo (francotecnologia_wc_parcpagseg_get_price() > 0 ? __('or') . ' ' : '') . francotecnologia_wc_parcpagseg_get_parceled_value(); ?></span></p>
-    <?php echo francotecnologia_wc_parcpagseg_get_parceled_table(); ?>
+    <?php 
+      if ( $product->product_type != 'variable') {
+        echo francotecnologia_wc_parcpagseg_get_parceled_table();
+      } else {
+        $variationList = $product->get_available_variations();
+        foreach($variationList AS $variation) {
+          $productVariation = new WC_Product_Variation( $variation['variation_id'] );
+          echo francotecnologia_wc_parcpagseg_get_parceled_table($productVariation->get_price(), $variation['variation_id'], empty(array_diff($variation['attributes'],$product->get_variation_default_attributes())));
+        }
+      }
+    ?>
     <meta itemprop="price" content="<?php echo $product->get_price(); ?>" />
     <meta itemprop="priceCurrency" content="<?php echo get_woocommerce_currency(); ?>" />
     <link itemprop="availability" href="http://schema.org/<?php echo $product->is_in_stock() ? __('InStock') : __('OutOfStock'); ?>" />
@@ -179,6 +191,10 @@ function francotecnologia_wc_parcpagseg_cart() {
   <?php
 }
 
+function francotecnologia_wc_parcpagseg_js() {
+  wp_enqueue_script( 'woocommerce-installments', plugins_url( 'woocommerce-installments.js' , __FILE__ ), array( 'jquery', 'wc-add-to-cart-variation' ), '1.0', true);
+}
+
 function francotecnologia_wc_parcpagseg_alter_woo_hooks() {
   // Product Page
   remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );  
@@ -192,6 +208,9 @@ function francotecnologia_wc_parcpagseg_alter_woo_hooks() {
   if ( FRANCOTECNOLOGIA_WC_PARCPAGSEG_CART_PAGE_MESSAGE != '' ) {
     add_action( 'woocommerce_cart_totals_after_order_total', 'francotecnologia_wc_parcpagseg_cart', 20 );
   }
+
+  // Javascript 
+  add_action( 'wp_enqueue_scripts', 'francotecnologia_wc_parcpagseg_js', 99 );
 }
 
 add_action('plugins_loaded','francotecnologia_wc_parcpagseg_alter_woo_hooks');
