@@ -156,7 +156,8 @@ function francotecnologia_wc_parcpagseg_single_product() {
         $variationList = $product->get_available_variations();
         foreach($variationList AS $variation) {
           $productVariation = new WC_Product_Variation( $variation['variation_id'] );
-          echo francotecnologia_wc_parcpagseg_get_parceled_table($productVariation->get_price(), $variation['variation_id'], empty(array_diff($variation['attributes'],$product->get_variation_default_attributes())));
+          $defaultVariation = array_diff($variation['attributes'], $product->get_variation_default_attributes());
+          echo francotecnologia_wc_parcpagseg_get_parceled_table($productVariation->get_price(), $variation['variation_id'], empty($defaultVariation));
         }
       }
     ?>
