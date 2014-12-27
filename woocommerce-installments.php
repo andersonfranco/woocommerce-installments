@@ -1,13 +1,13 @@
 <?php
 /**
-Plugin Name: WooCommerce Installments
-Plugin URI: https://github.com/AndersonFranco/woocommerce-installments
-Description: This plugin appends installments into the product price.
-Author: Anderson Franco
-Author URI: http://www.francotecnologia.com/
-Version: 1.3.0
-License: GPLv2 or later
-*/
+ * Plugin Name: WooCommerce Installments
+ * Plugin URI: https://github.com/AndersonFranco/woocommerce-installments
+ * Description: This plugin appends installments into the product price.
+ * Author: Anderson Franco
+ * Author URI: http://www.francotecnologia.com/
+ * Version: 1.3.1
+ * License: GPLv2 or later
+ */
 
 class FrancoTecnologiaWooCommerceInstallments {
 
@@ -15,16 +15,16 @@ class FrancoTecnologiaWooCommerceInstallments {
   protected static $priceGreaterThanOrEqualTo = 0;
 
   // MINIMUM MONTHLY PAYMENT - MUST BE GREATER THAN ZERO:
-  protected static $minimumMonthlyPayment     = 5;
+  protected static $minimumMonthlyPayment = 5;
 
   // NUMBER OF THE COLUMNS OF THE TABLE:
-  protected static $numberOfTableColumns      = 2;
+  protected static $numberOfTableColumns = 2;
 
   // ADD TO CART - BUTTON POSITION: TOP = true, BOTTOM = false
-  protected static $addToCartButtonPosition   = false;
+  protected static $addToCartButtonPosition = false;
 
   // USE COEFFICIENT TABLE / INTEREST RATES:
-  protected static $useCoefficientTable       = false;
+  protected static $useCoefficientTable = false;
 
   // COEFFICIENT TABLE - INTEREST RATES OF PAGSEGURO.COM.BR:
   protected static $coefficientTable = array( 
@@ -48,7 +48,6 @@ class FrancoTecnologiaWooCommerceInstallments {
   );
 
   public static function init() {
-
     if (static::$useDictLanguage) {
       // Default English words
       static::$language = array(
@@ -60,7 +59,6 @@ class FrancoTecnologiaWooCommerceInstallments {
         'cartPageMessage' => __('NO interest for %d months')
       );
     }
-
     add_action('plugins_loaded', array(get_called_class(), 'actions'));
   }
 
@@ -130,13 +128,13 @@ class FrancoTecnologiaWooCommerceInstallments {
     }
   }
 
-  protected static function getParceledTable($price = null, $variation_id = null, $variation_display = null) {
+  protected static function getParceledTable($price = null, $variationId = null, $variationDisplay = null) {
     $price = static::getPrice($price);
     if ($price > 0) {
       $installments = static::getInstallments($price);
       $table = '<table class="francotecnologia_wc_parcpagseg_table ';
-      $table .= 'francotecnologia_wc_parcpagseg_table_with_variation_id_' . ($variation_id > 0 ? $variation_id : '0') . '" ';
-      $table .= ($variation_display === false ? 'style="display:none"' : '');
+      $table .= 'francotecnologia_wc_parcpagseg_table_with_variation_id_' . ($variationId > 0 ? $variationId : '0') . '" ';
+      $table .= ($variationDisplay === false ? 'style="display:none"' : '');
       $table .= '><tr>';
       $table .= str_repeat('<th>' . static::$language['Installments'] . '</th><th>' . static::$language['Amount'] . '</th>', static::$numberOfTableColumns);
       $table .= '</tr>';
