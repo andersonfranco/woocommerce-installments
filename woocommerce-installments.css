@@ -1,8 +1,8 @@
 /* Catalog Page */
 
 ul.products li.product .price {
-  display: inline!important;  
-}  
+  display: inline!important;
+}
 
 .francotecnologia_wc_parcpagseg_loop_item_price_span {
   color: #00ADEF;
@@ -16,17 +16,31 @@ ul.products li.product .price {
   font-size: 75%;
 }
 
-.francotecnologia_wc_parcpagseg_table, 
-.francotecnologia_wc_parcpagseg_table th, 
+.francotecnologia_wc_parcpagseg_table,
+.francotecnologia_wc_parcpagseg_table th,
 .francotecnologia_wc_parcpagseg_table td {
   border:0;
 }
 
-.francotecnologia_wc_parcpagseg_table th, 
+.francotecnologia_wc_parcpagseg_table th,
 .francotecnologia_wc_parcpagseg_table td {
   font-weight: normal;
-  padding: 0 5px; 
+  padding: 0 5px;
   border-bottom: 1px solid #e8e4e3;
+}
+
+.francotecnologia_wc_parcpagseg_table_header_tr th {
+    font-weight: bold;
+    color: #000;
+}
+
+.francotecnologia_wc_parcpagseg_table_header_message_tr_th {
+    color: #00ADEF;
+}
+
+.francotecnologia_wc_parcpagseg_table_footer_message_tr_th {
+    color: #FF7F50;
+    border-bottom: 0!important;
 }
 
 /* Cart Page */

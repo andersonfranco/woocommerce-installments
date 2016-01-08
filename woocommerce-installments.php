@@ -5,7 +5,7 @@
  * Description: This plugin appends installments into the product price.
  * Author: Anderson Franco
  * Author URI: http://www.francotecnologia.com/
- * Version: 1.3.1
+ * Version: 1.4.0
  * License: GPLv2 or later
  */
 
@@ -23,14 +23,25 @@ class FrancoTecnologiaWooCommerceInstallments {
   // ADD TO CART - BUTTON POSITION: TOP = true, BOTTOM = false
   protected static $addToCartButtonPosition = false;
 
+  // SHOW COLUMN TOTAL
+  protected static $showColumnTotal = false;
+
+  // TABLE HEADER MESSAGE
+  protected static $tableHeaderMessage = "";
+
+  // TABLE FOOTER MESSAGE
+  protected static $tableFooterMessage = "";
+
   // USE COEFFICIENT TABLE / INTEREST RATES:
   protected static $useCoefficientTable = false;
 
-  // COEFFICIENT TABLE - INTEREST RATES OF PAGSEGURO.COM.BR:
-  protected static $coefficientTable = array( 
-    1, 0.52255, 0.35347, 
-    0.26898, 0.21830, 0.18453, 
-    0.16044, 0.14240, 0.12838, 
+  // COEFFICIENT TABLE - INTEREST RATES:
+  // NEED HELP TO CALC THIS NUMBERS?
+  // GO TO http://andersonfranco.github.io/capital-recovery-factor/
+  protected static $coefficientTable = array(
+    1, 0.52255, 0.35347,
+    0.26898, 0.21830, 0.18453,
+    0.16044, 0.14240, 0.12838,
     0.11717, 0.10802, 0.10040
   );
 
@@ -42,6 +53,7 @@ class FrancoTecnologiaWooCommerceInstallments {
     'or'              => 'ou',
     'Installments'    => 'Parcelas',
     'Amount'          => 'Valor',
+    'Total'          =>  'Total',
     'InStock'         => 'Em estoque',
     'OutOfStock'      => 'Indisponível',
     'cartPageMessage' => 'Pague em at&eacute; %d vezes'
@@ -54,6 +66,7 @@ class FrancoTecnologiaWooCommerceInstallments {
         'or'              => __('or'),
         'Installments'    => __('Installments'),
         'Amount'          => __('Amount'),
+        'Total'           => __('Total'),
         'InStock'         => __('InStock'),
         'OutOfStock'      => __('OutOfStock'),
         'cartPageMessage' => __('NO interest for %d months')
@@ -72,21 +85,21 @@ class FrancoTecnologiaWooCommerceInstallments {
     if (static::$language['cartPageMessage'] != '') {
       add_action('woocommerce_cart_totals_after_order_total', array(get_called_class(), 'actionCart'), 20);
     }
-    // CSS 
+    // CSS
     add_action('wp_enqueue_scripts', array(get_called_class(), 'css'), 98);
-    // Javascript 
+    // Javascript
     add_action('wp_enqueue_scripts', array(get_called_class(), 'js'), 99);
   }
 
   protected static function calculateInstallment($price = 0.00, $installment = 0) {
     $price        = (float) $price;
     $installment  = (int) $installment;
-    $result       = new stdClass(); 
+    $result       = new stdClass();
 
     if ($installment < 1 || $installment > 12) {
       $result->price = 0;
       $result->total = 0;
-    } else if (static::$useCoefficientTable) {      
+    } else if (static::$useCoefficientTable) {
       $result->price = sprintf("%0.2f", $price * static::$coefficientTable[$installment - 1]);
       $result->total = sprintf("%0.2f", ($price * static::$coefficientTable[$installment - 1]) * $installment);
     } else {
@@ -103,7 +116,7 @@ class FrancoTecnologiaWooCommerceInstallments {
       if ($product->get_price()) {
         $price = $product->get_price();
       }
-    }  
+    }
     return $price;
   }
 
@@ -111,7 +124,7 @@ class FrancoTecnologiaWooCommerceInstallments {
     $installments = round($price / static::$minimumMonthlyPayment);
     if ($installments > 12) {
       $installments = 12;
-    } else if ($installments < 1) { 
+    } else if ($installments < 1) {
       $installments = 1;
     }
     return $installments;
@@ -135,24 +148,45 @@ class FrancoTecnologiaWooCommerceInstallments {
       $table = '<table class="francotecnologia_wc_parcpagseg_table ';
       $table .= 'francotecnologia_wc_parcpagseg_table_with_variation_id_' . ($variationId > 0 ? $variationId : '0') . '" ';
       $table .= ($variationDisplay === false ? 'style="display:none"' : '');
-      $table .= '><tr>';
-      $table .= str_repeat('<th>' . static::$language['Installments'] . '</th><th>' . static::$language['Amount'] . '</th>', static::$numberOfTableColumns);
+      $table .= '><thead>';
+
+      $tableColspan = (2 + (static::$showColumnTotal?1:0)) * static::$numberOfTableColumns;
+
+      if (static::$tableHeaderMessage != '') {
+        $table .= '<tr><th class="francotecnologia_wc_parcpagseg_table_header_message_tr_th" colspan="'
+                . $tableColspan . '">' . static::$tableHeaderMessage . '</th></tr>';
+      }
+
+      $table .= '<tr class="francotecnologia_wc_parcpagseg_table_header_tr">';
+      $table .= str_repeat('<th>' . static::$language['Installments'] . '</th><th>' . static::$language['Amount'] . '</th>'
+                           . (static::$showColumnTotal ? '<th>' . static::$language['Total'] . '</th>':''), static::$numberOfTableColumns);
       $table .= '</tr>';
+
+      $table .= '</thead><tbody>';
+
       $tdCounter = 0;
       foreach (range(1, $installments) as $parcel) {
         $calc = static::calculateInstallment($price, $parcel);
         $tdCounter = 1 + $tdCounter % static::$numberOfTableColumns;
         if ($tdCounter == 1) {
           $table .= '<tr>';
-        }      
-        $table .= '<th>' . $parcel . '</th><td>' . wc_price($calc->price) . '</td>';
+        }
+
+        $table .= '<th>' . $parcel . '</th><td>' . wc_price($calc->price) . '</td>' . (static::$showColumnTotal ? '<td>' . wc_price($calc->total) . '</td>' : '');
+
         if ($tdCounter == static::$numberOfTableColumns) {
           $table .= '</tr>';
-        }      
+        }
       }
       if (substr( $table, -5 ) != '</tr>') {
         $table .= '</tr>';
-      }    
+      }
+
+      $table .= '</tbody>';
+      if (static::$tableFooterMessage != '') {
+        $table .= '<tfoot><tr><th class="francotecnologia_wc_parcpagseg_table_footer_message_tr_th" colspan="'
+                . $tableColspan . '">' . static::$tableFooterMessage . '</th></tr></tfoot>';
+      }
       $table .= '</table>';
       return $table;
     } else {
@@ -162,7 +196,7 @@ class FrancoTecnologiaWooCommerceInstallments {
 
   public static function actionLoopItem() {
     if (static::getPrice() >= static::$priceGreaterThanOrEqualTo) {
-      echo ' <span class="price francotecnologia_wc_parcpagseg_loop_item_price_span">' 
+      echo ' <span class="price francotecnologia_wc_parcpagseg_loop_item_price_span">'
            . (static::getPrice() > 0 ? static::$language['or'] . ' ' : '')
            . static::getParceledValue() . '</span>';
     }
@@ -176,12 +210,12 @@ class FrancoTecnologiaWooCommerceInstallments {
     $product = get_product();
     ?>
     <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-      <p class="price"><?php echo $product->get_price_html(); ?> 
+      <p class="price"><?php echo $product->get_price_html(); ?>
         <span class="francotecnologia_wc_parcpagseg_single_product_price_span">
           <?php echo (static::getPrice() > 0 ? static::$language['or'] . ' ' : '') . static::getParceledValue(); ?>
         </span>
       </p>
-      <?php 
+      <?php
         if ($product->product_type != 'variable') {
           echo static::getParceledTable();
         } else {
@@ -209,7 +243,7 @@ class FrancoTecnologiaWooCommerceInstallments {
       $installments = static::getInstallments($woocommerce->cart->total);
     } else {
       $installments = 0;
-    }  
+    }
     if (stripos(static::$language['cartPageMessage'],'%d') !== false) {
       if ($installments > 0) {
         $message = sprintf(static::$language['cartPageMessage'], $installments);
@@ -218,7 +252,7 @@ class FrancoTecnologiaWooCommerceInstallments {
       }
     } else {
       $message = static::$language['cartPageMessage'];
-    } 
+    }
     ?>
     <tr><th colspan="2" class="francotecnologia_wc_parcpagseg_cart_tr_th"><?php echo $message; ?></th></tr>
     <?php

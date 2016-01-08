@@ -1,10 +1,10 @@
 # WooCommerce Installments #
-**Contributors:** Anderson Franco  
-**Tags:** woocommerce, pagseguro, paypal, payment, parcelamento, installments  
-**Tested with:** WordPress 4.0 and WooCommerce 2.2.4  
-**Stable tag:** 1.3.1  
-**License:** GPLv2 or later  
-**License URI:** http://www.gnu.org/licenses/gpl.html  
+**Contributors:** Anderson Franco
+**Tags:** woocommerce, pagseguro, paypal, payment, parcelamento, installments
+**Tested with:** WordPress 4.0 and WooCommerce 2.2.4
+**Stable tag:** 1.4.0
+**License:** GPLv2 or later
+**License URI:** http://www.gnu.org/licenses/gpl.html
 
 This plugin appends installments into the product price.
 
@@ -19,6 +19,7 @@ This plugin appends installments into the product price
 ### Installation ###
 
 * Upload the entire `woocommerce-installments` folder to the `/wp-content/plugins/` directory
+* Edit plugin settings in `woocommerce-installments.php` file
 * Activate the plugin through the `Plugins` menu in WordPress
 
 ## Portuguese ##
@@ -32,6 +33,7 @@ Criado inicialmente para ser exibir as opções de parcelamento do PagSeguro. No
 ### Instala&ccedil;&atilde;o ###
 
 * Envie toda a pasta `woocommerce-installments` para a pasta `/wp-content/plugins/`
+* Edite no arquivo `woocommerce-installments.php` as opções do plugin
 * Ative o plugin através do menu Plugins no WordPress
 
 ## Screenshots ##
@@ -50,18 +52,23 @@ Criado inicialmente para ser exibir as opções de parcelamento do PagSeguro. No
 ### Sample of CSS to show the price like the screenshots ###
 
 ```css
-  ul.products li.product .price {  
-    display: inline;  
-  }  
+  ul.products li.product .price {
+    display: inline;
+  }
 
-  .francotecnologia_wc_parcpagseg_table th,  
-  .francotecnologia_wc_parcpagseg_table td {  
-    padding: 0;  
-    border-bottom: 1px solid #e8e4e3;  
-  }  
+  .francotecnologia_wc_parcpagseg_table th,
+  .francotecnologia_wc_parcpagseg_table td {
+    padding: 0;
+    border-bottom: 1px solid #e8e4e3;
+  }
 ```
 
 ## Changelog ##
+
+### 1.4.0 ###
+
+* Table - Total column
+* Table - Header and footer message
 
 ### 1.3.1 ###
 
