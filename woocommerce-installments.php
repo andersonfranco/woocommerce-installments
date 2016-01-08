@@ -36,8 +36,7 @@ class FrancoTecnologiaWooCommerceInstallments {
   protected static $useCoefficientTable = false;
 
   // COEFFICIENT TABLE - INTEREST RATES:
-  // NEED HELP TO CALC THIS NUMBERS?
-  // GO TO http://andersonfranco.github.io/capital-recovery-factor/
+  // http://andersonfranco.github.io/capital-recovery-factor/
   protected static $coefficientTable = array(
     1, 0.52255, 0.35347,
     0.26898, 0.21830, 0.18453,
