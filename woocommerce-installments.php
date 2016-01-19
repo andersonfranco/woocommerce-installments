@@ -47,6 +47,9 @@ class FrancoTecnologiaWooCommerceInstallments {
   // USE DICTIONARY LANGUAGE (DEFAULT: ENGLISH)
   protected static $useDictLanguage = true;
 
+  //HOW PARCELS ARE DISPLAYED (One below the other or beside)
+  protected static $parcelsLayout=2; // 1 | 2
+
   // IF $useDictLanguage == false, USE THIS WORDS:
   protected static $language = array(
     'or'              => 'ou',
@@ -140,6 +143,50 @@ class FrancoTecnologiaWooCommerceInstallments {
     }
   }
 
+  protected static function createParcelsLayout($table,$price){
+  	$installments = static::getInstallments($price);
+  	switch(self::$parcelsLayout){
+  		case 1:
+	  		$tdCounter = 0;
+	  		foreach (range(1, $installments) as $parcel) {
+	  			$calc = static::calculateInstallment($price, $parcel);
+	  			$tdCounter = 1 + $tdCounter % static::$numberOfTableColumns;
+	  			if ($tdCounter == 1) {
+	  				$table .= '<tr>';
+	  			}
+	  			$table .= '<th>' . $parcel . '</th><td>' . wc_price($calc->price) . '</td>' . (static::$showColumnTotal ? '<td>' . wc_price($calc->total) . '</td>' : '');
+	  			if ($tdCounter == static::$numberOfTableColumns) {
+	  				$table .= '</tr>';
+	  			}
+	  		}
+  		break;
+  		case 2:
+	  		$layout2Offset = ceil($installments/static::$numberOfTableColumns);      
+	  		$layout2Counter=0;
+	  		for($j=0;$j<$installments;$j++){
+	  			for($i=$j;$i<$installments;$i+=$layout2Offset){      
+	  				$parcel = ($i+1);          
+	  				$calc = static::calculateInstallment($price, $parcel);
+	  				$tdCounter = 1 + $tdCounter % static::$numberOfTableColumns;
+	  				if ($tdCounter == 1) {
+	  					$table .= '<tr>';
+	  				}
+	  				$table .= '<th>' . $parcel . '</th><td>' . wc_price($calc->price) . '</td>' . (static::$showColumnTotal ? '<td>' . wc_price($calc->total) . '</td>' : '');
+	  				if ($tdCounter == static::$numberOfTableColumns) {
+	  					$table .= '</tr>';
+	  				}
+	  				$layout2Counter++;
+	  				if($layout2Counter==$installments){
+	  					break 2;
+	  				}
+	  			}
+	  		}
+  		break;
+  	}
+
+  	return $table;
+  }
+
   protected static function getParceledTable($price = null, $variationId = null, $variationDisplay = null) {
     $price = static::getPrice($price);
     if ($price > 0) {
@@ -163,20 +210,8 @@ class FrancoTecnologiaWooCommerceInstallments {
 
       $table .= '</thead><tbody>';
 
-      $tdCounter = 0;
-      foreach (range(1, $installments) as $parcel) {
-        $calc = static::calculateInstallment($price, $parcel);
-        $tdCounter = 1 + $tdCounter % static::$numberOfTableColumns;
-        if ($tdCounter == 1) {
-          $table .= '<tr>';
-        }
+      $table = self::createParcelsLayout($table,$price);
 
-        $table .= '<th>' . $parcel . '</th><td>' . wc_price($calc->price) . '</td>' . (static::$showColumnTotal ? '<td>' . wc_price($calc->total) . '</td>' : '');
-
-        if ($tdCounter == static::$numberOfTableColumns) {
-          $table .= '</tr>';
-        }
-      }
       if (substr( $table, -5 ) != '</tr>') {
         $table .= '</tr>';
       }
